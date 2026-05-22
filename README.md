@@ -1,94 +1,79 @@
-# Fuel Ventures — Claude Team OS
+Fuel Ventures — Claude Team
+Configuration repository for Fuel Ventures' Claude Team workspace.
 
-This repository is the source of truth for how Fuel Ventures uses Claude Team. It contains the system prompts, skill definitions, output templates, and connector setup guides that power our AI stack.
+Context
+Fuel Ventures uses Claude Team as the firm-wide AI workspace, rolled out across ~20 people. It sits alongside our core stack and reads from / writes to it via connectors.
 
----
+Claude Team is used for drafting, synthesis, research, reporting, and day-to-day knowledge work across investment, BD, operations, IR, compliance, and comms.
 
-## What This Repo Is
+Integrations
+Essential (Week 1)
 
-We run Claude Team as a centralised intelligence layer across the firm — connecting it to Google Drive, Pipedrive, Visible.vc, Notion, Linear, Gmail, and Slack via MCP. Each department has a dedicated Project (agent) pre-configured with the right data sources and context.
+Google Drive — canonical knowledge base
+Slack — primary internal comms
+Linear — task and project management
+Google Sheets — fund model, trackers, cap tables (via Drive)
+Investment & portfolio
 
-This repo version-controls all of that configuration. When a system prompt is improved, a new skill is proven in practice, or a template is updated, it gets committed here — so we have a full history of what changed, why, and what worked.
+Visible.vc — LP reporting, portfolio company KPIs, fund metrics
+Pipedrive — deal flow, BD pipeline, investor pipeline
+Comms & enrichment
 
----
+Gmail — email drafting, thread summarisation
+Clay — expert network, LinkedIn enrichment, prospect research
+Notion — under review; Drive is canonical
+Each integration has a named owner, defined scope (read vs. read-write), and is tracked in the Integrations Register (/mcp/README.md). Connectors come online in phases — essentials at launch, the rest as teams demonstrate need.
 
-## Structure
+Workspace structure
+The workspace is organised into Projects, one per team or function.
 
-```
-Fuel-Ventures-Claude-Team/
-│
-├── projects/          # System prompts for each department Project
-│   ├── bd/
-│   ├── portfolio/
-│   ├── lp-comms/
-│   ├── compliance/
-│   └── operations/
-│
-├── skills/            # Slash command definitions — added once workflows are proven
-│   ├── bd/
-│   ├── portfolio/
-│   ├── lp-comms/
-│   └── operations/
-│
-├── templates/         # Output templates Claude references for consistent formatting
-│   ├── ic-memo.md
-│   ├── board-prep.md
-│   └── lp-update.md
-│
-└── mcp/               # Step-by-step connector setup guides
-    ├── google-drive.md
-    ├── pipedrive.md
-    ├── visible-vc.md
-    └── notion.md
-```
+Team Projects (day-to-day work)
 
----
+SEIS
+EIS / Scale-Up
+Business Development
+Operations
+Direct Deals / Cap Intros
+Function Projects (cross-team work)
 
-## Department Projects
+Investor Relations
+Compliance
+Communications & Marketing
+Shared Workflow Projects (used by multiple teams)
 
-| Project | Who it's for | Connected to |
-|---|---|---|
-| BD | Partners, Associates | Pipedrive, Google Drive, Gmail |
-| Portfolio | Portfolio team, Partners | Visible.vc, Google Drive, Pipedrive |
-| LP & Comms | Partners, Comms lead | Google Drive, Gmail, Notion |
-| Compliance | Operations, Finance, Partners | Google Drive |
-| Operations | Admin, Ops team | Gmail, Slack, Linear, Notion, Google Drive |
+Investment Memos (SEIS + EIS)
+Each Project has its own knowledge files (from Drive), custom instructions, and a named owner. Recurring workflows are codified as Skills, called from inside the relevant Project.
 
----
+Purpose of this repo
+Version control and source of truth for Claude Team configuration — system prompts, Skills, templates, connector setup. Not for content, knowledge, or day-to-day work.
 
-## How This Repo Gets Updated
+The rule: configuration changes happen here first (committed with a reason), then get copied into the live workspace. Workspace and repo should never drift.
 
-**Projects** are updated when a system prompt is materially improved — not for every minor tweak. If you change a Project's prompt and the output quality improves noticeably, commit it with a note on what changed and why.
+Repo layout
+projects/      System prompts and custom instructions per Project
+skills/        Definitions for proven, repeatable workflows
+templates/     Output formatting templates
+mcp/           Connector setup guides and Integrations Register
+CHANGELOG.md   Log of meaningful config changes
+What does NOT live here
+Handbook, FAQ, guides → Google Drive (Fuel AI Operations Shared Drive)
+Knowledge / KB files → Google Drive
+Day-to-day work → Claude Team workspace
+This repo is for configuration and version control only. Most of the team will never open it.
 
-**Skills** are only added once a workflow has been run and optimised in practice. If you're writing the same prompt three or more times and it consistently produces good output, it's ready to become a skill. Document it here before adding it to Claude Team.
+Three-layer model
+Configuration — lives in this repo — audience: admins and champions
+Knowledge & content — lives in Google Drive — audience: whole team
+Work — lives in the Claude Team workspace — audience: whole team
+Status
+Early stage. Claude Team is live and rollout is underway. This repo will be populated with real configuration as workflows prove themselves in use — not pre-built speculatively.
 
-**Templates** are updated when the output format changes — e.g. if the IC memo structure is revised, the template here should reflect it so Claude's outputs stay consistent.
-
----
-
-## Getting Set Up
-
-New to the team? Start here:
-
-1. Accept your Claude Team invite (check your @fuel.ventures inbox)
-2. Sign in at [claude.ai](https://claude.ai) with your Fuel Ventures Google account
-3. Find the shared Projects in the left sidebar
-4. Follow the connector setup guides in `/mcp/` to link your accounts
-5. Read the system prompt for your department's Project so you understand what it's configured to do
-
-For questions, speak to Michael.
-
----
-
-## Stack
-
-| Tool | Role |
-|---|---|
-| Claude Team | Primary AI interface |
-| Google Drive (Fuel Vault) | Document repository |
-| Pipedrive | CRM and deal pipeline |
-| Visible.vc | Portfolio KPIs and reporting |
-| Notion | Internal knowledge base |
-| Linear | Task and project tracking |
-| Gmail | Founder, LP, co-investor comms |
-| Slack | Internal comms |
+Governance
+Owner: Michael Burnett
+Contributors: Champions (one per team) via PR
+Review cadence: Monthly review of Projects and Skills; quarterly review of integrations and access
+Related docs
+Rollout plan → Google Drive (Fuel AI Operations)
+Fuel AI Handbook → Google Drive (Fuel AI Operations)
+Integrations Register → /mcp/README.md
+Change log → CHANGELOG.md
