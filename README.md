@@ -56,11 +56,13 @@ The rule: configuration changes happen here first (committed with a reason), the
 
 ## Repo layout
 
-    projects/      System prompts and custom instructions per Project
-    skills/        Definitions for proven, repeatable workflows
-    templates/     Output formatting templates
-    mcp/           Connector setup guides and Integrations Register
-    CHANGELOG.md   Log of meaningful config changes
+```
+projects/      System prompts and custom instructions per Project
+skills/        Definitions for proven, repeatable workflows
+templates/     Output formatting templates
+mcp/           Connector setup guides and Integrations Register
+CHANGELOG.md   Log of meaningful config changes
+```
 
 ## What does NOT live here
 
